@@ -8,6 +8,7 @@ import {
   Braces,
   Globe,
   ChatText,
+  PencilSquare,
 } from 'react-bootstrap-icons'
 import { getPreferredLanguage } from '../../config/language.mjs'
 
@@ -121,6 +122,14 @@ export const config = {
     label: 'Ask',
     genPrompt: createGenPrompt({
       message: 'Analyze the following content and express your opinion, or give your answer',
+      includeLanguagePrefix: true,
+    }),
+  },
+  fixTypos: {
+    icon: <PencilSquare />,
+    label: 'Fix Typos',
+    genPrompt: createGenPrompt({
+      message: 'Check the following text for typos and correct them carefully',
       includeLanguagePrefix: true,
     }),
   },

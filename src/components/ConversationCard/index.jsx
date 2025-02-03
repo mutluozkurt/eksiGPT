@@ -575,7 +575,7 @@ function ConversationCard(props) {
           }}
         >
           <span className="icon-and-text">
-            <SearchIcon size="small" /> {t('Ask ChatGPT')}
+            <SearchIcon size="small" /> {t('Ask EksiGPT')}
           </span>
         </p>
       ) : (

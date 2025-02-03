@@ -2,9 +2,9 @@
 +++ b/src/manifest.v2.json
 @@ -1,5 +1,5 @@
  {
--  "name": "ChatGPTBox",
-+  "name": "Fission - ChatBox",
-   "description": "Integrating ChatGPT into your browser deeply, everything you need is here",
+-  "name": "EksiGPT",
++  "name": "EksiGPT",
+   "description": "Integrating AI tools into eksisozluk deeply, everything you need is here",
    "version": "0.0.0",
    "manifest_version": 2,
 @@ -28,7 +28,7 @@

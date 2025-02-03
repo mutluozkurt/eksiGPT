@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import { ApiModes } from './ApiModes'
 import { SelectionTools } from './SelectionTools'
-import { SiteAdapters } from './SiteAdapters'
 
 ModulesPart.propTypes = {
   config: PropTypes.object.isRequired,
@@ -19,7 +18,7 @@ export function ModulesPart({ config, updateConfig }) {
         <TabList>
           <Tab className="popup-tab">{t('API Modes')}</Tab>
           <Tab className="popup-tab">{t('Selection Tools')}</Tab>
-          <Tab className="popup-tab">{t('Sites')}</Tab>
+          {/* <Tab className="popup-tab">{t('Sites')}</Tab> */}
         </TabList>
 
         <TabPanel>
@@ -28,9 +27,9 @@ export function ModulesPart({ config, updateConfig }) {
         <TabPanel>
           <SelectionTools config={config} updateConfig={updateConfig} />
         </TabPanel>
-        <TabPanel>
+        {/* <TabPanel>
           <SiteAdapters config={config} updateConfig={updateConfig} />
-        </TabPanel>
+        </TabPanel> */}
       </Tabs>
     </>
   )

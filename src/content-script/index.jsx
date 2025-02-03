@@ -152,6 +152,36 @@ async function getInput(inputQuery) {
   }
 }
 
+/**
+ * Handles the button click event, creating a floating toolbar at the mouse click position
+ * and rendering the toolbar with the given prompt.
+ *
+ * @param {string} prompt
+ * @param {MouseEvent} e
+ * @returns {Promise<void>}
+ */
+async function handleButtonClick(prompt, e) {
+  const position = { x: e.clientX, y: e.clientY }
+  const container = createElementAtPosition(position.x, position.y)
+  container.className = 'chatgptbox-toolbar-container-not-queryable'
+  const userConfig = await getUserConfig()
+  if (prompt) prompt = await cropText(`Reply in ${await getPreferredLanguage()}.\n` + prompt)
+  render(
+    <FloatingToolbar
+      session={initSession({
+        modelName: userConfig.modelName,
+        apiMode: userConfig.apiMode,
+        extraCustomModelName: userConfig.customModelName,
+      })}
+      container={container}
+      triggered={true}
+      closeable={true}
+      prompt={prompt}
+    />,
+    container,
+  )
+}
+
 let toolbarContainer
 const deleteToolbar = () => {
   if (toolbarContainer && toolbarContainer.className === 'chatgptbox-toolbar-container')
@@ -159,6 +189,8 @@ const deleteToolbar = () => {
 }
 
 const createSelectionTools = async (toolbarContainer, selection) => {
+  if (window.location.hostname !== 'eksisozluk.com') return
+
   toolbarContainer.className = 'chatgptbox-toolbar-container'
   const userConfig = await getUserConfig()
   render(
@@ -267,6 +299,8 @@ async function prepareForSelectionToolsTouch() {
 let menuX, menuY
 
 async function prepareForRightClickMenu() {
+  if (window.location.hostname !== 'eksisozluk.com') return
+
   document.addEventListener('contextmenu', (e) => {
     menuX = e.clientX
     menuY = e.clientY
@@ -333,7 +367,13 @@ async function prepareForStaticCard() {
     if (siteName in siteConfig) {
       const siteAction = siteConfig[siteName].action
       if (siteAction && siteAction.init) {
-        initSuccess = await siteAction.init(location.hostname, userConfig, getInput, mountComponent)
+        initSuccess = await siteAction.init(
+          location.hostname,
+          userConfig,
+          getInput,
+          mountComponent,
+          handleButtonClick,
+        )
       }
     }
 

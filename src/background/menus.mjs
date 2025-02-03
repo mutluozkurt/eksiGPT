@@ -44,8 +44,9 @@ export function refreshMenu() {
     })
     Browser.contextMenus.create({
       id: menuId,
-      title: 'ChatGPTBox',
+      title: 'EksiGPT',
       contexts: ['all'],
+      documentUrlPatterns: ['https://eksisozluk.com/*'],
     })
 
     for (const [k, v] of Object.entries(menuConfig)) {
@@ -54,6 +55,7 @@ export function refreshMenu() {
         parentId: menuId,
         title: t(v.label),
         contexts: ['all'],
+        documentUrlPatterns: ['https://eksisozluk.com/*'],
       })
     }
     Browser.contextMenus.create({
@@ -61,6 +63,7 @@ export function refreshMenu() {
       parentId: menuId,
       contexts: ['selection'],
       type: 'separator',
+      documentUrlPatterns: ['https://eksisozluk.com/*'],
     })
     for (const index in defaultConfig.selectionTools) {
       const key = defaultConfig.selectionTools[index]
@@ -70,6 +73,7 @@ export function refreshMenu() {
         parentId: menuId,
         title: t(desc),
         contexts: ['selection'],
+        documentUrlPatterns: ['https://eksisozluk.com/*'],
       })
     }
 

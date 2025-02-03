@@ -1,4 +1,5 @@
 import { AlwaysCustomGroups, ModelGroups, ModelMode, Models } from '../config/index.mjs'
+import { deepObjectEqual } from '../utils/deepObjectEqual'
 
 export function modelNameToDesc(modelName, t, extraCustomModelName = '') {
   if (!t) t = (x) => x
@@ -119,9 +120,16 @@ export function getApiModesStringArrayFromConfig(config, onlyActive) {
   return getApiModesFromConfig(config, onlyActive).map(apiModeToModelName)
 }
 
+// export function isApiModeSelected(apiMode, configOrSession) {
+//   var result =  configOrSession.apiMode
+//     ? JSON.stringify(configOrSession.apiMode) === JSON.stringify(apiMode)
+//     : configOrSession.modelName === apiModeToModelName(apiMode)
+//   return result;
+// }
+
 export function isApiModeSelected(apiMode, configOrSession) {
   return configOrSession.apiMode
-    ? JSON.stringify(configOrSession.apiMode) === JSON.stringify(apiMode)
+    ? deepObjectEqual(configOrSession.apiMode, apiMode)
     : configOrSession.modelName === apiModeToModelName(apiMode)
 }
 
