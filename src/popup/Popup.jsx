@@ -33,7 +33,7 @@ function Footer({ currentVersion, latestVersion }) {
           <>
             ({`${t('Latest')}: `}
             <a
-              href={'https://github.com/mutluozkurt/EksiGPT/releases/tag/v' + latestVersion}
+              href={'https://github.com/mutluozkurt/eksiGPT/releases/tag/v' + latestVersion}
               target="_blank"
               rel="nofollow noopener noreferrer"
             >
@@ -45,7 +45,7 @@ function Footer({ currentVersion, latestVersion }) {
       </div>
       <div>
         <a
-          href="https://github.com/mutluozkurt/EksiGPT"
+          href="https://github.com/mutluozkurt/eksiGPT"
           target="_blank"
           rel="nofollow noopener noreferrer"
         >
@@ -77,7 +77,7 @@ function Popup() {
     getUserConfig().then((config) => {
       setConfig(config)
       setCurrentVersion(Browser.runtime.getManifest().version.replace('v', ''))
-      fetch('https://api.github.com/repos/mutluozkurt/EksiGPT/releases/latest').then((response) =>
+      fetch('https://api.github.com/repos/mutluozkurt/eksiGPT/releases/latest').then((response) =>
         response.json().then((data) => {
           setLatestVersion(data.tag_name.replace('v', ''))
         }),
