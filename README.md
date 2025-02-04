@@ -2,18 +2,12 @@
     <img src="./src/logo.png">
 </p>
 
-<h1 align="center">ChatGPT Box</h1>
+<h1 align="center">EkşiGPT</h1>
 
 <div align="center">
 
-Deep ChatGPT integrations in your browser, completely for free.
-
-[![license][license-image]][license-url]
-[![release][release-image]][release-url]
-[![size](https://img.shields.io/badge/minified%20size-390%20kB-blue)][release-url]
-[![verfiy][verify-image]][verify-url]
-
-English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&nbsp; [简体中文](README_ZH.md) &nbsp;&nbsp;|&nbsp;&nbsp; [日本語](README_JA.md) &nbsp;&nbsp;|&nbsp;&nbsp; [Türkçe](README_TR.md)
+Integrating AI tools into eksisozluk deeply </br>
+🌐 **Website:** [https://eksigpt.com](https://eksigpt.com)  
 
 ### Install
 
@@ -30,11 +24,11 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg
 
-[license-url]: https://github.com/josStorer/chatGPTBox/blob/master/LICENSE
+[license-url]: https://github.com/mutluozkurt/eksiGPT/blob/master/LICENSE
 
 [release-image]: https://img.shields.io/github/release/josStorer/chatGPTBox.svg
 
-[release-url]: https://github.com/josStorer/chatGPTBox/releases/latest
+[release-url]: https://github.com/mutluozkurt/eksiGPT/releases/latest
 
 [verify-image]: https://github.com/josStorer/chatGPTBox/workflows/verify-configs/badge.svg
 
@@ -66,6 +60,23 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 
 </div>
 
+EksiGPT is a browser extension forked from the [ChatGPTBox](https://github.com/josStorer/chatGPTBox) project, created for entertainment purposes. It aims to make writing and reading experiences on [Ekşi Sözlük](https://eksisozluk.com/) much easier and more enjoyable.
+
+It includes all the features of [ChatGPTBox](https://github.com/josStorer/chatGPTBox). In addition, it has some buttons customized for [Ekşi Sözlük](https://eksisozluk.com/).
+
+📝 Edit Spelling: Detects and corrects spelling errors in your entries. Your writings become error-free and readable.
+
+💡 Suggest Ideas: Suggests new entry ideas based on your entry or topic title.
+
+🔍 Summarize: Summarizes long entries in a few sentences, speeding up the reading experience. You can access summarized information without getting lost in long texts.
+
+📌 Title Suggestion: When creating a new title, Ekşi Sözlük's "Guidelines for Creating Titles" are followed to suggest the most suitable, attention-grabbing, and meaningful titles based on your content. This ensures your title is more consistent and understandable.
+
+
+💬 Ask EksiGPT: When you click on a title, a special chat area opens on the right side. With this feature:</br>
+You can instantly see a summary of the entries in that title.
+You can chat with AI about the topic and get analysis.
+
 ## News
 
 - This extension does **not** collect your data. You can verify it by conducting a global search for `fetch(` and `XMLHttpRequest(` in the code to find all network request calls. The amount of code is not much, so it's easy to do that.
@@ -83,7 +94,6 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 - 📓 Summarize any page with right-click menu. (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 Independent conversation page. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
 - 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, Claude, New Bing, Moonshot, Self-Hosted, Azure etc.).
-- 📦 Integration for various commonly used websites (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Integration to all mainstream search engines, and custom queries to support additional sites.
 - 🧰 Selection tool and right-click menu to perform various tasks, such as translation, summarization, polishing,
   sentiment analysis, paragraph division, code explain and queries.
@@ -101,33 +111,40 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 
 <div align="center">
 
-**Search Engine Integration, Floating Windows, Conversation Branches**
 
-![preview_google_floatingwindow_conversationbranch](screenshots/preview_google_floatingwindow_conversationbranch.jpg)
+![](screenshots/1.png)
 
-**Integration with Commonly Used Websites, Selection Tools**
+</br>
 
-![preview_reddit_selectiontools](screenshots/preview_reddit_selectiontools.jpg)
+![](screenshots/2.png)
 
-**Independent Conversation Page**
+</br>
 
-![preview_independentpanel](screenshots/preview_independentpanel.jpg)
+![](screenshots/3.png)
 
-**Git Analysis, Right Click Menu**
+</br>
 
-![preview_github_rightclickmenu](screenshots/preview_github_rightclickmenu.jpg)
+![](screenshots/4.png)
 
-**Video Summary**
+</br>
 
-![preview_youtube](screenshots/preview_youtube.jpg)
+![](screenshots/5.png)
 
-**Mobile Support**
+</br>
 
-![image](https://user-images.githubusercontent.com/13366013/225529110-9221c8ce-ad41-423e-b6ec-097981e74b66.png)
+![](screenshots/6.png)
 
-**Settings**
+</br>
 
-![preview_settings](screenshots/preview_settings.jpg)
+![](screenshots/7.png)
+
+</br>
+
+![](screenshots/8.png)
+
+</br>
+
+![](screenshots/9.png)
 
 </div>
 
