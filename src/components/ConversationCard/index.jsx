@@ -36,8 +36,9 @@ import { initSession } from '../../services/init-session.mjs'
 import { findLastIndex } from 'lodash-es'
 import { generateAnswersWithBingWebApi } from '../../services/apis/bing-web.mjs'
 import { handlePortError } from '../../services/wrappers.mjs'
+import logo from '../../logo.png'
 
-const logo = Browser.runtime.getURL('logo.png')
+//const logo = Browser.runtime.getURL('logo.png')
 
 class ConversationItemData extends Object {
   /**
@@ -339,6 +340,20 @@ function ConversationCard(props) {
     <div className="gpt-inner">
       <div
         className={
+          props.draggable
+            ? `gpt-header-logo-container${completeDraggable ? ' draggable' : ''}`
+            : 'gpt-header-logo-container'
+        }
+        style="user-select:none;"
+      >
+        <img src={logo} className="logo" />
+        <span style={{ marginLeft: '3px' }}>
+          ekşi<span className="eksi-green">gpt</span>
+        </span>
+      </div>
+
+      <div
+        className={
           props.draggable ? `gpt-header${completeDraggable ? ' draggable' : ''}` : 'gpt-header'
         }
         style="user-select:none;"
@@ -372,9 +387,7 @@ function ConversationCard(props) {
             >
               <Pin size={16} />
             </span>
-          ) : (
-            <img src={logo} style="user-select:none;width:20px;height:20px;" />
-          )}
+          ) : null}
           <select
             style={props.notClampSize ? {} : { width: 0, flexGrow: 1 }}
             className="normal-button"
