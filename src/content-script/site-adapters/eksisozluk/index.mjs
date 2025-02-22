@@ -49,7 +49,7 @@ function summarizeButton(handleButtonClick) {
   const entries = document.querySelectorAll('#entry-item-list > li')
 
   entries.forEach((entry) => {
-    if (entry.querySelector('.summarize-button')) {
+    if (entry.querySelector('.summarize-button') || entry.querySelector('.analyze-button')) {
       return
     }
 
@@ -61,6 +61,9 @@ function summarizeButton(handleButtonClick) {
       summarizeButton.textContent = 'özet geç'
       summarizeButton.style.cursor = 'pointer'
       summarizeButton.style.marginLeft = '5px'
+      summarizeButton.style.textDecoration = 'none'
+      summarizeButton.style.borderBottom = '0.5px solid'
+      summarizeButton.style.paddingBottom = '0.5px'
 
       summarizeButton.addEventListener('click', async (e) => {
         const contentDiv =
@@ -76,7 +79,37 @@ function summarizeButton(handleButtonClick) {
           await handleButtonClick(prompt, e)
         }
       })
+
+      const title = document.querySelector('#title span[itemprop="name"]')?.textContent
+      const analyzeButton = document.createElement('a')
+      analyzeButton.classList.add('analyze-button')
+      analyzeButton.title = 'analiz et'
+      analyzeButton.textContent = 'analiz et'
+      analyzeButton.style.cursor = 'pointer'
+      analyzeButton.style.marginLeft = '15px'
+      analyzeButton.style.textDecoration = 'none'
+      analyzeButton.style.borderBottom = '0.5px solid'
+      analyzeButton.style.paddingBottom = '0.5px'
+
+      analyzeButton.addEventListener('click', async (e) => {
+        const contentDiv =
+          entry.querySelector('.content-expanded') || entry.querySelector('.content')
+
+        if (contentDiv) {
+          const entryText = contentDiv.innerText.trim()
+          if (!entryText) {
+            alert('Analiz edilecek metin bulunamadı.')
+            return
+          }
+          const prompt = await cropText(
+            `Aşağıdaki metin Ekşi Sözlük'te ${title} başlığına ait bir entry, bu entry'i 3 madde halinde analiz et:\n\n"${entryText}"`,
+          )
+          await handleButtonClick(prompt, e)
+        }
+      })
+
       feedbakContainer.appendChild(summarizeButton)
+      feedbakContainer.appendChild(analyzeButton)
     }
   })
 }
