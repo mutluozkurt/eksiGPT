@@ -359,6 +359,7 @@ function ConversationCard(props) {
         <span
           className="gpt-util-group"
           style={{
+            display: props.closeable || props.dockable ? 'flex' : 'none',
             padding: '15px 0 15px 15px',
             ...(props.notClampSize ? {} : { flexGrow: isSafari() ? 0 : 1 }),
             ...(isSafari() ? { maxWidth: '200px' } : {}),
@@ -385,7 +386,9 @@ function ConversationCard(props) {
             >
               <Pin size={16} />
             </span>
-          ) : null}
+          ) : (
+            <> </>
+          )}
           {props.draggable && (
             <SelectModel
               apiModes={apiModes}
@@ -405,10 +408,9 @@ function ConversationCard(props) {
         <span
           className="gpt-util-group"
           style={{
-            padding: '15px 15px 15px 0',
-            justifyContent: 'flex-end',
+            padding: '15px 15px 15px 15px',
             flexGrow: props.draggable && !completeDraggable ? 0 : 1,
-            //justifyContent: !props.draggable ? 'flex-start' : 'flex-end',
+            justifyContent: !props.draggable ? 'flex-start' : 'flex-end',
           }}
         >
           {!config.disableWebModeHistory && session && session.conversationId && (
@@ -533,7 +535,7 @@ function ConversationCard(props) {
           <span
             className="gpt-util-group"
             style={{
-              padding: '15px 0 15px 15px',
+              padding: '15px 0 15px 12px',
               ...(props.notClampSize ? {} : { flexGrow: isSafari() ? 0 : 1 }),
               ...(isSafari() ? { maxWidth: '200px' } : {}),
             }}
