@@ -1,5 +1,40 @@
 import { cropText } from '../../../utils'
 
+const TITLE_RULES = ` **Ekşi Sözlük'te başlık açarken dikkat edilecek hususlar:**  
+                    1. Başlıklar genellikle ilgili kavramın ismidir. Nasıl açacağını bilmiyorsan ismini kullan.  
+                    2. Kısaltmalar, noktalarla ayrılmış olsalar bile bitişik yazılır. Örn: "dwg", "wysiwyg", "3d".  
+                    3. Web sitesi başlıkları her zaman web sitesinin adı olmalıdır. Örn: "Google", "IMDb".  
+                    4. Özel adı olmayan web siteleri için adres kullanılabilir. Örn: "www.bilgi.edu.tr".  
+                    5. Tarihler "21 aralık 1976" formatında yazılmalıdır.  
+                    6. Saatler 24 saat formatında olmalıdır. Örn: "18 00", "07 00".  
+                    7. Bir nesne, kavram veya kişi hakkında açılan başlıklara gereksiz tür eklemeyin. Örn: "elma meyvesi" yerine "elma".  
+                    8. Kişiler için tam isim kullanılmalıdır. Örn: "adolf hitler", "mustafa kemal atatürk".  
+                    9. Kitap, film gibi eserler Türkiye'de yaygın bilinen ismiyle açılmalıdır. Örn: "attack on titan", "pal sokağı çocukları".  
+                    10. Bir sayıyla ilgili başlığın sonuna gereksiz ekler getirilmemelidir. Örn: "3 sayısı" yerine "3".  
+                    11. Hukuki olarak sorun teşkil edecek başlıklar açılmamalıdır.  
+                    12. Yazılımlar resmi ismiyle açılmalıdır. Örn: "Windows 95", "Norton Antivirus".  
+                    13. Romen rakamları "I II III" gibi yazılmalı, "L" harfi kullanılmamalıdır.  
+                    14. Telefon numaraları bitişik yazılmalıdır. Örn: "4440365", "05320000000".  
+                    15. Bir fiil veya deyim için başlık açarken mastar hali kullanılmalıdır. Örn: "gitmek", "alttan almak".  
+                    16. Çoğul kullanımı yalnızca gerekliyse yapılmalıdır. Örn: "osmanlılar", "denemeler".  
+                    17. Mastar hali olmayan özel başlıklar sadece istisnai durumlarda kullanılabilir.  
+                    18. Bir başlık 50 karakter sınırını aşmamalıdır.  
+                    19. Aramaya inanın, tekrar başlık açmayın.  
+                    20. Türkçe başlıklarda gramer hatası yapılmamalıdır.  
+                    21. Asya ülkelerindeki ad ve soyad dizilimleri Türkçe formatına uygun çevrilmelidir. Örn: "akira kurosawa".  
+                    22. Yabancı kelimelere getirilen ekler apostrof ile ayrılmalıdır. Örn: "entry'ler".  
+                    23. The eki, eserin adı içinde geçiyorsa korunmalıdır. Örn: "The Beatles".  
+                    24. Uçak modelleri resmi formatta yazılmalıdır. Örn: "F-16", "MIG 29".  
+                    25. Ebat, çözünürlük ve çarpım işlemleri birleşik yazılmalıdır. Örn: "1024x768", "2x2".  
+                    26. İçkiler tam ismiyle yazılmalıdır. Örn: "Absolut Citron", "Smirnoff Ice".  
+                    27. Yazılışında apostrof kullanılan yabancı eser adları IMDb formatına uygun olmalıdır.  
+                    28. Rakamlarla yazılan başlıklarda yanlış anlaşılmalara mahal verilmemelidir.  
+                    29. Eserler Türkiye’de yaygın bilinen adıyla açılmalıdır.  
+                    30. "i, ii, iii" gibi Romen rakamları yanlış yazılmamalıdır.  
+                    31. Yazılı eserlerin ve filmlerin adları doğru yazılmalıdır.  
+                    32. Türkiye'de bilinmeyen yabancı eserler yaygın bilinen isimleriyle açılmalıdır.  
+                    33. Sayılar için özel ekler getirilmemelidir. Örn: "100 numara", "12 monkeys".  `
+
 function createButton({ type = 'button', title, textContent, tabIndex = -1, onClick }) {
   const button = document.createElement('button')
   button.type = type
@@ -94,40 +129,7 @@ function addEditToolButtons(handleButtonClick) {
                     Daha sonra, aşağıdaki metne uygun olarak, Ekşi Sözlük'ün "başlık açarken dikkat edilecek hususlar" kurallarına uygun şekilde,  
                     3 başlık öner.  
                                 
-                    **Ekşi Sözlük'te başlık açarken dikkat edilecek hususlar:**  
-                    1. Başlıklar genellikle ilgili kavramın ismidir. Nasıl açacağını bilmiyorsan ismini kullan.  
-                    2. Kısaltmalar, noktalarla ayrılmış olsalar bile bitişik yazılır. Örn: "dwg", "wysiwyg", "3d".  
-                    3. Web sitesi başlıkları her zaman web sitesinin adı olmalıdır. Örn: "Google", "IMDb".  
-                    4. Özel adı olmayan web siteleri için adres kullanılabilir. Örn: "www.bilgi.edu.tr".  
-                    5. Tarihler "21 aralık 1976" formatında yazılmalıdır.  
-                    6. Saatler 24 saat formatında olmalıdır. Örn: "18 00", "07 00".  
-                    7. Bir nesne, kavram veya kişi hakkında açılan başlıklara gereksiz tür eklemeyin. Örn: "elma meyvesi" yerine "elma".  
-                    8. Kişiler için tam isim kullanılmalıdır. Örn: "adolf hitler", "mustafa kemal atatürk".  
-                    9. Kitap, film gibi eserler Türkiye'de yaygın bilinen ismiyle açılmalıdır. Örn: "attack on titan", "pal sokağı çocukları".  
-                    10. Bir sayıyla ilgili başlığın sonuna gereksiz ekler getirilmemelidir. Örn: "3 sayısı" yerine "3".  
-                    11. Hukuki olarak sorun teşkil edecek başlıklar açılmamalıdır.  
-                    12. Yazılımlar resmi ismiyle açılmalıdır. Örn: "Windows 95", "Norton Antivirus".  
-                    13. Romen rakamları "I II III" gibi yazılmalı, "L" harfi kullanılmamalıdır.  
-                    14. Telefon numaraları bitişik yazılmalıdır. Örn: "4440365", "05320000000".  
-                    15. Bir fiil veya deyim için başlık açarken mastar hali kullanılmalıdır. Örn: "gitmek", "alttan almak".  
-                    16. Çoğul kullanımı yalnızca gerekliyse yapılmalıdır. Örn: "osmanlılar", "denemeler".  
-                    17. Mastar hali olmayan özel başlıklar sadece istisnai durumlarda kullanılabilir.  
-                    18. Bir başlık 50 karakter sınırını aşmamalıdır.  
-                    19. Aramaya inanın, tekrar başlık açmayın.  
-                    20. Türkçe başlıklarda gramer hatası yapılmamalıdır.  
-                    21. Asya ülkelerindeki ad ve soyad dizilimleri Türkçe formatına uygun çevrilmelidir. Örn: "akira kurosawa".  
-                    22. Yabancı kelimelere getirilen ekler apostrof ile ayrılmalıdır. Örn: "entry'ler".  
-                    23. The eki, eserin adı içinde geçiyorsa korunmalıdır. Örn: "The Beatles".  
-                    24. Uçak modelleri resmi formatta yazılmalıdır. Örn: "F-16", "MIG 29".  
-                    25. Ebat, çözünürlük ve çarpım işlemleri birleşik yazılmalıdır. Örn: "1024x768", "2x2".  
-                    26. İçkiler tam ismiyle yazılmalıdır. Örn: "Absolut Citron", "Smirnoff Ice".  
-                    27. Yazılışında apostrof kullanılan yabancı eser adları IMDb formatına uygun olmalıdır.  
-                    28. Rakamlarla yazılan başlıklarda yanlış anlaşılmalara mahal verilmemelidir.  
-                    29. Eserler Türkiye’de yaygın bilinen adıyla açılmalıdır.  
-                    30. "i, ii, iii" gibi Romen rakamları yanlış yazılmamalıdır.  
-                    31. Yazılı eserlerin ve filmlerin adları doğru yazılmalıdır.  
-                    32. Türkiye'de bilinmeyen yabancı eserler yaygın bilinen isimleriyle açılmalıdır.  
-                    33. Sayılar için özel ekler getirilmemelidir. Örn: "100 numara", "12 monkeys".  
+                    ${TITLE_RULES}
                 
                     Kullanıcının belirlediği başlık: "${newTitle}"  
                     Kullanıcının başlık için girdiği metin: "${text}"`,
@@ -240,40 +242,7 @@ export default {
                     3 başlık öner. Ardından şu açıklamayı ekle:
                     "Başlık ile ilgili bilgi girdikten sonra 'Başlık Öner' butonuna basarak daha tutarlı başlık önerileri alabilirsiniz."
                                 
-                    **Ekşi Sözlük'te başlık açarken dikkat edilecek hususlar:**  
-                    1. Başlıklar genellikle ilgili kavramın ismidir. Nasıl açacağını bilmiyorsan ismini kullan.  
-                    2. Kısaltmalar, noktalarla ayrılmış olsalar bile bitişik yazılır. Örn: "dwg", "wysiwyg", "3d".  
-                    3. Web sitesi başlıkları her zaman web sitesinin adı olmalıdır. Örn: "Google", "IMDb".  
-                    4. Özel adı olmayan web siteleri için adres kullanılabilir. Örn: "www.bilgi.edu.tr".  
-                    5. Tarihler "21 aralık 1976" formatında yazılmalıdır.  
-                    6. Saatler 24 saat formatında olmalıdır. Örn: "18 00", "07 00".  
-                    7. Bir nesne, kavram veya kişi hakkında açılan başlıklara gereksiz tür eklemeyin. Örn: "elma meyvesi" yerine "elma".  
-                    8. Kişiler için tam isim kullanılmalıdır. Örn: "adolf hitler", "mustafa kemal atatürk".  
-                    9. Kitap, film gibi eserler Türkiye'de yaygın bilinen ismiyle açılmalıdır. Örn: "attack on titan", "pal sokağı çocukları".  
-                    10. Bir sayıyla ilgili başlığın sonuna gereksiz ekler getirilmemelidir. Örn: "3 sayısı" yerine "3".  
-                    11. Hukuki olarak sorun teşkil edecek başlıklar açılmamalıdır.  
-                    12. Yazılımlar resmi ismiyle açılmalıdır. Örn: "Windows 95", "Norton Antivirus".  
-                    13. Romen rakamları "I II III" gibi yazılmalı, "L" harfi kullanılmamalıdır.  
-                    14. Telefon numaraları bitişik yazılmalıdır. Örn: "4440365", "05320000000".  
-                    15. Bir fiil veya deyim için başlık açarken mastar hali kullanılmalıdır. Örn: "gitmek", "alttan almak".  
-                    16. Çoğul kullanımı yalnızca gerekliyse yapılmalıdır. Örn: "osmanlılar", "denemeler".  
-                    17. Mastar hali olmayan özel başlıklar sadece istisnai durumlarda kullanılabilir.  
-                    18. Bir başlık 50 karakter sınırını aşmamalıdır.  
-                    19. Aramaya inanın, tekrar başlık açmayın.  
-                    20. Türkçe başlıklarda gramer hatası yapılmamalıdır.  
-                    21. Asya ülkelerindeki ad ve soyad dizilimleri Türkçe formatına uygun çevrilmelidir. Örn: "akira kurosawa".  
-                    22. Yabancı kelimelere getirilen ekler apostrof ile ayrılmalıdır. Örn: "entry'ler".  
-                    23. The eki, eserin adı içinde geçiyorsa korunmalıdır. Örn: "The Beatles".  
-                    24. Uçak modelleri resmi formatta yazılmalıdır. Örn: "F-16", "MIG 29".  
-                    25. Ebat, çözünürlük ve çarpım işlemleri birleşik yazılmalıdır. Örn: "1024x768", "2x2".  
-                    26. İçkiler tam ismiyle yazılmalıdır. Örn: "Absolut Citron", "Smirnoff Ice".  
-                    27. Yazılışında apostrof kullanılan yabancı eser adları IMDb formatına uygun olmalıdır.  
-                    28. Rakamlarla yazılan başlıklarda yanlış anlaşılmalara mahal verilmemelidir.  
-                    29. Eserler Türkiye’de yaygın bilinen adıyla açılmalıdır.  
-                    30. "i, ii, iii" gibi Romen rakamları yanlış yazılmamalıdır.  
-                    31. Yazılı eserlerin ve filmlerin adları doğru yazılmalıdır.  
-                    32. Türkiye'de bilinmeyen yabancı eserler yaygın bilinen isimleriyle açılmalıdır.  
-                    33. Sayılar için özel ekler getirilmemelidir. Örn: "100 numara", "12 monkeys".  
+                    ${TITLE_RULES}
                 
                     Kullanıcının belirlediği başlık: "${newTitle}"`,
         )
