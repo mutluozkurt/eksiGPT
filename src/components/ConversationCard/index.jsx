@@ -4,15 +4,12 @@ import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
 import {
-  apiModeToModelName,
   createElementAtPosition,
   getApiModesFromConfig,
-  isApiModeSelected,
   isFirefox,
   isMobile,
   isSafari,
   isUsingModelName,
-  modelNameToDesc,
 } from '../../utils'
 import {
   ArchiveIcon,
@@ -26,7 +23,7 @@ import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
-import { getUserConfig, isUsingBingWebModel, Models } from '../../config/index.mjs'
+import { getUserConfig, isUsingBingWebModel } from '../../config/index.mjs'
 import { useTranslation } from 'react-i18next'
 import DeleteButton from '../DeleteButton'
 import { useConfig } from '../../hooks/use-config.mjs'
@@ -37,6 +34,7 @@ import { findLastIndex } from 'lodash-es'
 import { generateAnswersWithBingWebApi } from '../../services/apis/bing-web.mjs'
 import { handlePortError } from '../../services/wrappers.mjs'
 import logo from '../../logo.png'
+import SelectModel from '../SelectModel/index.jsx'
 
 //const logo = Browser.runtime.getURL('logo.png')
 
@@ -388,47 +386,18 @@ function ConversationCard(props) {
               <Pin size={16} />
             </span>
           ) : null}
-          <select
-            style={props.notClampSize ? {} : { width: 0, flexGrow: 1 }}
-            className="normal-button"
-            required
-            onChange={(e) => {
-              let apiMode = null
-              let modelName = 'customModel'
-              if (e.target.value !== '-1') {
-                apiMode = apiModes[e.target.value]
-                modelName = apiModeToModelName(apiMode)
-              }
-              const newSession = {
-                ...session,
-                modelName,
-                apiMode,
-                aiName: modelNameToDesc(
-                  apiMode ? apiModeToModelName(apiMode) : modelName,
-                  t,
-                  config.customModelName,
-                ),
-              }
-              if (config.autoRegenAfterSwitchModel && conversationItemData.length > 0)
-                getRetryFn(newSession)()
-              else setSession(newSession)
-            }}
-          >
-            {apiModes.map((apiMode, index) => {
-              const modelName = apiModeToModelName(apiMode)
-              const desc = modelNameToDesc(modelName, t, config.customModelName)
-              if (desc) {
-                return (
-                  <option value={index} key={index} selected={isApiModeSelected(apiMode, session)}>
-                    {desc}
-                  </option>
-                )
-              }
-            })}
-            <option value={-1} selected={!session.apiMode && session.modelName === 'customModel'}>
-              {t(Models.customModel.desc)}
-            </option>
-          </select>
+          {props.draggable && (
+            <SelectModel
+              apiModes={apiModes}
+              session={session}
+              config={config}
+              conversationItemData={conversationItemData}
+              getRetryFn={getRetryFn}
+              t={t}
+              setSession={setSession}
+              notClampSize={props.notClampSize}
+            />
+          )}
         </span>
         {props.draggable && !completeDraggable && (
           <div className="draggable" style={{ flexGrow: 2, cursor: 'move', height: '55px' }} />
@@ -439,6 +408,7 @@ function ConversationCard(props) {
             padding: '15px 15px 15px 0',
             justifyContent: 'flex-end',
             flexGrow: props.draggable && !completeDraggable ? 0 : 1,
+            //justifyContent: !props.draggable ? 'flex-start' : 'flex-end',
           }}
         >
           {!config.disableWebModeHistory && session && session.conversationId && (
@@ -552,6 +522,35 @@ function ConversationCard(props) {
           </span>
         </span>
       </div>
+      <hr />
+      {!props.draggable && (
+        <div
+          className={
+            props.draggable ? `gpt-header${completeDraggable ? ' draggable' : ''}` : 'gpt-header'
+          }
+          style="user-select:none;"
+        >
+          <span
+            className="gpt-util-group"
+            style={{
+              padding: '15px 0 15px 15px',
+              ...(props.notClampSize ? {} : { flexGrow: isSafari() ? 0 : 1 }),
+              ...(isSafari() ? { maxWidth: '200px' } : {}),
+            }}
+          >
+            <SelectModel
+              apiModes={apiModes}
+              session={session}
+              config={config}
+              conversationItemData={conversationItemData}
+              getRetryFn={getRetryFn}
+              t={t}
+              setSession={setSession}
+              notClampSize={props.notClampSize}
+            />
+          </span>
+        </div>
+      )}
       <hr />
       <div
         ref={bodyRef}
