@@ -27,7 +27,7 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - uses: josStorer/get-current-time@v2
+      - uses: mutluozkurt/get-current-time@v2
         id: current-time
         with:
           format: YYYY_MMDD_HHmm
