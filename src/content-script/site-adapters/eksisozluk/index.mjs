@@ -1,4 +1,5 @@
 import { cropText } from '../../../utils'
+import logo from '../../../logo.png'
 
 const TITLE_RULES = ` **Ekşi Sözlük'te başlık açarken dikkat edilecek hususlar:**  
                     1. Başlıklar genellikle ilgili kavramın ismidir. Nasıl açacağını bilmiyorsan ismini kullan.  
@@ -41,11 +42,47 @@ function createButton({ type = 'button', title, textContent, tabIndex = -1, onCl
   button.title = title
   button.textContent = textContent
   button.tabIndex = tabIndex
+
+  const img = document.createElement('img')
+  img.src = logo
+  img.alt = title
+  img.style.width = '12px'
+  img.style.height = '12px'
+  img.style.objectFit = 'contain'
+  img.style.marginLeft = '5px'
+  img.style.marginBottom = '-2px'
+
+  button.appendChild(img)
   button.addEventListener('click', onClick)
   return button
 }
 
-function summarizeButton(handleButtonClick) {
+function createButtonFeedbackContainer({ className, title, text, marginLeft, handleClick }) {
+  const button = document.createElement('a')
+  button.classList.add(className)
+  button.title = title
+  button.textContent = text
+  button.style.cursor = 'pointer'
+  button.style.marginLeft = marginLeft
+  button.style.textDecoration = 'none'
+  button.style.marginTop = '5px'
+
+  const img = document.createElement('img')
+  img.src = logo
+  img.alt = title
+  img.style.width = '12px'
+  img.style.height = '12px'
+  img.style.objectFit = 'contain'
+  img.style.marginLeft = '5px'
+  img.style.marginBottom = '-2px'
+
+  button.appendChild(img)
+  button.addEventListener('click', handleClick)
+
+  return button
+}
+
+function feedbackContainerButtons(handleButtonClick) {
   const entries = document.querySelectorAll('#entry-item-list > li')
 
   entries.forEach((entry) => {
@@ -53,63 +90,51 @@ function summarizeButton(handleButtonClick) {
       return
     }
 
-    const feedbakContainer = entry.querySelector('.feedback-container')
-    if (feedbakContainer) {
-      const summarizeButton = document.createElement('a')
-      summarizeButton.classList.add('summarize-button')
-      summarizeButton.title = 'özet geç'
-      summarizeButton.textContent = 'özet geç'
-      summarizeButton.style.cursor = 'pointer'
-      summarizeButton.style.marginLeft = '5px'
-      summarizeButton.style.textDecoration = 'none'
-      summarizeButton.style.borderBottom = '0.5px solid'
-      summarizeButton.style.paddingBottom = '0.5px'
-
-      summarizeButton.addEventListener('click', async (e) => {
-        const contentDiv =
-          entry.querySelector('.content-expanded') || entry.querySelector('.content')
-
-        if (contentDiv) {
-          const entryText = contentDiv.innerText.trim()
-          if (!entryText) {
-            alert('Özetlenecek metin bulunamadı.')
-            return
-          }
-          const prompt = await cropText(`Aşağıdaki metni kısaca özetle:\n\n"${entryText}"`)
-          await handleButtonClick(prompt, e)
-        }
-      })
-
+    const feedbackContainer = entry.querySelector('.feedback-container')
+    if (feedbackContainer) {
+      const contentDiv = entry.querySelector('.content-expanded') || entry.querySelector('.content')
       const title = document.querySelector('#title span[itemprop="name"]')?.textContent
-      const analyzeButton = document.createElement('a')
-      analyzeButton.classList.add('analyze-button')
-      analyzeButton.title = 'analiz et'
-      analyzeButton.textContent = 'analiz et'
-      analyzeButton.style.cursor = 'pointer'
-      analyzeButton.style.marginLeft = '15px'
-      analyzeButton.style.textDecoration = 'none'
-      analyzeButton.style.borderBottom = '0.5px solid'
-      analyzeButton.style.paddingBottom = '0.5px'
 
-      analyzeButton.addEventListener('click', async (e) => {
-        const contentDiv =
-          entry.querySelector('.content-expanded') || entry.querySelector('.content')
-
-        if (contentDiv) {
-          const entryText = contentDiv.innerText.trim()
-          if (!entryText) {
-            alert('Analiz edilecek metin bulunamadı.')
-            return
+      const summarizeButton = createButtonFeedbackContainer({
+        className: 'summarize-button',
+        title: 'özet geç',
+        text: 'özet geç',
+        marginLeft: '5px',
+        handleClick: async (e) => {
+          if (contentDiv) {
+            const entryText = contentDiv.innerText.trim()
+            if (!entryText) {
+              alert('Özetlenecek metin bulunamadı.')
+              return
+            }
+            const prompt = await cropText(`Aşağıdaki metni kısaca özetle:\n\n"${entryText}"`)
+            await handleButtonClick(prompt, e)
           }
-          const prompt = await cropText(
-            `Aşağıdaki metin Ekşi Sözlük'te ${title} başlığına ait bir entry, bu entry'i 3 madde halinde analiz et:\n\n"${entryText}"`,
-          )
-          await handleButtonClick(prompt, e)
-        }
+        },
       })
 
-      feedbakContainer.appendChild(summarizeButton)
-      feedbakContainer.appendChild(analyzeButton)
+      const analyzeButton = createButtonFeedbackContainer({
+        className: 'analyze-button',
+        title: 'analiz et',
+        text: 'analiz et',
+        marginLeft: '15px',
+        handleClick: async (e) => {
+          if (contentDiv) {
+            const entryText = contentDiv.innerText.trim()
+            if (!entryText) {
+              alert('Analiz edilecek metin bulunamadı.')
+              return
+            }
+            const prompt = await cropText(
+              `Aşağıdaki metin Ekşi Sözlük'te ${title} başlığına ait bir entry, bu entry'i 3 madde halinde analiz et:\n\n"${entryText}"`,
+            )
+            await handleButtonClick(prompt, e)
+          }
+        },
+      })
+
+      feedbackContainer.appendChild(summarizeButton)
+      feedbackContainer.appendChild(analyzeButton)
     }
   })
 }
@@ -237,7 +262,7 @@ export default {
   init: async (hostname, userConfig, getInput, mountComponent, handleButtonClick) => {
     try {
       if (hostname.includes('eksisozluk.com')) {
-        summarizeButton(handleButtonClick)
+        feedbackContainerButtons(handleButtonClick)
         addEditToolButtons(handleButtonClick)
 
         const targetNode = document.getElementById('entry-item-list')
@@ -246,7 +271,7 @@ export default {
           const observer = new MutationObserver((mutationsList) => {
             for (const mutation of mutationsList) {
               if (mutation.type === 'childList') {
-                summarizeButton(handleButtonClick)
+                feedbackContainerButtons(handleButtonClick)
               }
             }
           })
@@ -272,7 +297,7 @@ export default {
                     Eğer hata varsa, düzeltilmiş halini ver.  
                 
                     Daha sonra, kullanıcının belirlediği başlığı dikkate alarak, Ekşi Sözlük'ün "başlık açarken dikkat edilecek hususlar" kurallarına uygun şekilde,  
-                    3 başlık öner. Ardından şu açıklamayı ekle:
+                    3 başlık öner. Ardından şu açıklamayı kalın harflerle ekle:
                     "Başlık ile ilgili bilgi girdikten sonra 'Başlık Öner' butonuna basarak daha tutarlı başlık önerileri alabilirsiniz."
                                 
                     ${TITLE_RULES}
