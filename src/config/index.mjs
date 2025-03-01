@@ -291,7 +291,7 @@ export const defaultConfig = {
   /** @type {keyof ThemeMode}*/
   themeMode: 'dark',
   /** @type {keyof Models}*/
-  modelName: getNavigatorLanguage() === 'zh' ? 'moonshotWebFree' : 'claude2WebFree',
+  modelName: getNavigatorLanguage() === 'zh' ? 'moonshotWebFree' : 'chatgptFree4o',
   apiMode: null,
 
   //preferredLanguage: getNavigatorLanguage(),
