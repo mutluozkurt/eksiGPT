@@ -348,6 +348,9 @@ function ConversationCard(props) {
         <span style={{ marginLeft: '3px' }}>
           ekşi<span className="eksi-green">gpt</span>
         </span>
+        {props.draggable && !completeDraggable && (
+          <div className="draggable" style={{ flexGrow: 2, cursor: 'move', height: '25px' }} />
+        )}
       </div>
 
       <div
@@ -402,9 +405,9 @@ function ConversationCard(props) {
             />
           )}
         </span>
-        {props.draggable && !completeDraggable && (
-          <div className="draggable" style={{ flexGrow: 2, cursor: 'move', height: '55px' }} />
-        )}
+        {/* {props.draggable && !completeDraggable && (
+            <div className="draggable" style={{ flexGrow: 2, cursor: 'move', height: '55px' }} />
+          )} */}
         <span
           className="gpt-util-group"
           style={{
