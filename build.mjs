@@ -62,9 +62,9 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, minimal, callback) 
       minimizer: [
         new TerserPlugin({
           terserOptions: {
-            mangle: true,
+            mangle: false,
             output: {
-              beautify: false,
+              beautify: true,
               comments: false,
               ascii_only: true,
             },
