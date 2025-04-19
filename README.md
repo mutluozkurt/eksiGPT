@@ -12,7 +12,6 @@ Integrating AI tools into eksisozluk deeply </br>
 ### Install
 
 [![Chrome][Chrome-image]][Chrome-url]
-[![Edge][Edge-image]][Edge-url]
 [![Firefox][Firefox-image]][Firefox-url]
 [![Safari][Safari-image]][Safari-url]
 [![Android][Android-image]][Android-url]
@@ -36,7 +35,7 @@ Integrating AI tools into eksisozluk deeply </br>
 
 [Chrome-image]: https://img.shields.io/badge/-Chrome-brightgreen?logo=google-chrome&logoColor=white
 
-[Chrome-url]: https://chrome.google.com/webstore/detail/chatgptbox/eobbhoofkanlmddnplfhnmkfbnlhpbbo
+[Chrome-url]: https://chromewebstore.google.com/detail/eksigpt/fhghgligcpbmikoglemmjedkpebpdchk
 
 [Edge-image]: https://img.shields.io/badge/-Edge-blue?logo=microsoft-edge&logoColor=white
 
@@ -44,7 +43,7 @@ Integrating AI tools into eksisozluk deeply </br>
 
 [Firefox-image]: https://img.shields.io/badge/-Firefox-orange?logo=firefox-browser&logoColor=white
 
-[Firefox-url]: https://addons.mozilla.org/firefox/addon/chatgptbox/
+[Firefox-url]: https://addons.mozilla.org/en-GB/firefox/addon/eksigpt/
 
 [Safari-image]: https://img.shields.io/badge/-Safari-blue?logo=safari&logoColor=white
 
